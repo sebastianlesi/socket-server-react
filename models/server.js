@@ -7,6 +7,7 @@ const socketio = require("socket.io");
 //Libreria para navegar entre directorios por path
 const path = require("path");
 const Sockets = require("./socket");
+const cors = require("cors");
 
 class Server {
   constructor() {
@@ -24,6 +25,10 @@ class Server {
     //Desplegar el directorio publico, se crea un front basico en html
     //Se utiliza path para resolver la ruta actual con la que quiero llegar o sea public y asi darme la ruta resultado
     this.app.use(express.static(path.resolve(__dirname, "../public")));
+
+    //Se utiliza cors para restringir el acceso desde otras fuentes externas
+    //Es necesario para usar soket.io
+    this.app.use(cors());
   }
 
   configurarSockets() {
